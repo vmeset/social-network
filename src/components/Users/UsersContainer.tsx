@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {connect, DefaultRootState} from 'react-redux';
 import {
@@ -26,18 +27,17 @@ type MapStatePropsType = {
     users: Array<UserType>
     followingInProgress: Array<number>
 }
-
 type MapDispatchPropsType = {
     getUsers: (currentPage: number, pageSize: number) => void
-    unfollow: (userId: number) => void
-    follow: (userId: number) => void
+    follow: () => void
+    unfollow: () => void
 }
-
 type OwnPropsType = {
     pageTitle: string
 }
 
 type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+
 
 class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
@@ -82,7 +82,6 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 export default compose(
     // TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState
-    connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(
-        mapStateToProps,
-        {follow, unfollow, getUsers: requestUsers})
+    connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType >
+    (mapStateToProps, {follow, unfollow, getUsers: requestUsers})
 )(UsersContainer)
